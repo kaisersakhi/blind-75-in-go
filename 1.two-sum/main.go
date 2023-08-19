@@ -34,7 +34,24 @@ func main() {
 }
 
 func twoSum(nums []int, target int) []int {
-	return twoSumNSquare(nums, target)
+	return twoSumWithHashMap(nums, target)
+}
+
+// Better approach, takes O(n)
+func twoSumWithHashMap(nums []int, target int) []int {
+	var res = []int{-1, -1}
+	var hash = make(map[int]int)
+
+	for i, _ := range nums {
+		value, exists := hash[target-nums[i]]
+		if exists {
+			res[0] = value
+			res[1] = i
+			return res
+		}
+		hash[nums[i]] = i
+	}
+	return res
 }
 
 // Not a good approach to solve this problem, needs n^2 time
